@@ -1,0 +1,210 @@
+% Картка продукту «Цифровий тренер для автоспорту» — один слайд 16:9, 4 колонки
+% Джерело: Product-Card.md. Стиль — як у roadmap/roadmap.tex
+% Збирання: latexmk -xelatex product-card.tex
+% PNG: pdftoppm -png -r 170 -singlefile product-card.pdf product-card
+\documentclass[tikz,border=0pt]{standalone}
+
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{ukrainian}
+\setotherlanguage{english}
+\defaultfontfeatures{Ligatures=TeX}
+\setmainfont{PTS55F.ttf}[BoldFont=PTS75F.ttf,ItalicFont=PTS56F.ttf,BoldItalicFont=PTS76F.ttf]
+\setsansfont{PTS55F.ttf}[BoldFont=PTS75F.ttf,ItalicFont=PTS56F.ttf,BoldItalicFont=PTS76F.ttf]
+\newfontfamily\cyrillicfont{PTS55F.ttf}[BoldFont=PTS75F.ttf,ItalicFont=PTS56F.ttf,BoldItalicFont=PTS76F.ttf]
+\newfontfamily\cyrillicfontsf{PTS55F.ttf}[BoldFont=PTS75F.ttf,ItalicFont=PTS56F.ttf,BoldItalicFont=PTS76F.ttf]
+
+\usepackage{enumitem}
+\setlist[itemize]{nosep, leftmargin=1.0em, label={\color{accent}\textbullet}}
+\usetikzlibrary{positioning,calc,backgrounds}
+
+% ---------- Кольори (як у презентації етапу 1 і roadmap.tex) ----------
+\definecolor{accent}{HTML}{C8461B}
+\definecolor{ink}{HTML}{23272B}
+\definecolor{steel}{HTML}{3E6A86}
+\colorlet{cCore}{accent}            % цінність, аудиторія, метрика
+\colorlet{cTone}{accent!70!black}   % голос і болі
+\colorlet{cPlat}{steel}             % функції, формат, ринок
+\colorlet{cBiz}{ink!80}             % гроші, конкуренти, плани
+
+% ---------- Геометрія (сторінка 16:9: 37,6 × 21,15 см) ----------
+\def\pagew{37.6}
+\def\pageh{21.15}
+\def\mar{0.6}    % поле сторінки, см
+\def\gap{0.45}   % проміжок між колонками і картками, см
+\def\colw{8.76}  % ширина колонки: (37,6 − 2·0,6 − 3·0,45) / 4
+\def\pad{0.24}   % внутрішній відступ картки, см
+\def\ybot{-\pageh+\mar}  % спільний низ колонок
+
+% Сірий підпис етапу праворуч
+\newcommand{\st}[1]{\hfill{\fontsize{8.8}{10}\selectfont\color{ink!55}#1}}
+\newcommand{\ra}{$\rightarrow$}
+
+\begin{document}
+\hyphenpenalty=10000 \exhyphenpenalty=10000
+\begin{tikzpicture}[
+  font=\fontsize{11.2}{13.6}\selectfont,
+  head/.style={rectangle, text=#1!80!black, font=\fontsize{12}{14}\selectfont\bfseries,
+               anchor=north west, minimum width=\colw cm, text width=\colw cm-2*\pad cm,
+               inner xsep=\pad cm, inner ysep=4.5pt, align=left},
+  body/.style={rectangle, text=ink, anchor=north west, text width=\colw cm-2*\pad cm,
+               inner xsep=\pad cm, inner ysep=5pt, align=left},
+]
+
+% Картка: [#1] низ рамки (необов'язково; для останньої картки колонки — \ybot),
+% #2 ім'я, #3 верхній лівий кут, #4 колір, #5 заголовок, #6 текст
+\newcommand{\card}[6][]{%
+  \node[head=#4] (#2h) at #3 {#5};
+  \node[body] (#2b) at (#2h.south west) {#6};
+  \begin{scope}[on background layer]
+    \if\relax\detokenize{#1}\relax
+      \coordinate (#2end) at (#2b.south west -| #2h.east);
+    \else
+      \coordinate (#2end) at (#2h.east |- 0,#1);
+    \fi
+    \draw[#4, line width=0.7pt, rounded corners=3pt, fill=white] (#2h.north west) rectangle (#2end);
+    \fill[#4!14, rounded corners=3pt] (#2h.north west) rectangle (#2h.south east);
+    \fill[#4!14] ($(#2h.south west)+(0,0.1)$) rectangle (#2h.south east);
+    \draw[#4, line width=0.7pt] (#2h.south west) -- (#2h.south east);
+  \end{scope}
+}
+\newcommand{\under}[1]{($(#1b.south west)+(0,-\gap)$)}
+\newcommand{\colx}[1]{\mar+#1*(\colw+\gap)}
+
+% ---------- Сторінка ----------
+\path[use as bounding box] (0,0) rectangle (\pagew,-\pageh);
+\begin{scope}[on background layer]\fill[white] (0,0) rectangle (\pagew,-\pageh);\end{scope}
+
+% ---------- Заголовок ----------
+\fill[accent, rounded corners=3pt] (\mar,-\mar) rectangle (\pagew-\mar,-\mar-1.15);
+\node[anchor=west, text=white, font=\fontsize{19}{22}\selectfont\bfseries]
+  at (\mar+0.4, -\mar-0.575) {Lap Coach — цифровий тренер для автоспорту};
+\node[anchor=east, text=white, font=\fontsize{11.5}{13}\selectfont]
+  at (\pagew-\mar-0.4, -\mar-0.575) {Карта продукту};
+
+% ---------- Що це за продукт ----------
+\node[anchor=north west, text width=\pagew cm-2*\mar cm-0.8cm, align=left, inner sep=0pt,
+      font=\fontsize{12.5}{15.5}\selectfont, text=ink]
+  (intro) at (\mar+0.4, -\mar-1.15-0.35)
+  {\textbf{Lap Coach} — вебзастосунок-тренер для пілотів-аматорів. Він перетворює GPS-запис з екшн-камери чи телефона на розбір заїзду:
+   сам ділить заїзд на кола, накладає траєкторію на межі траси, знаходить повороти, показує, де втрачається час, і дає 2–3 прості поради на наступний заїзд.};
+
+% Верх колонок: заголовок (0,6 + 1,15) + відступ 0,35 + два рядки вступу (~1,15) + проміжок 0,4
+\def\ytop{-3.65}
+
+% ================= Колонка 1: суть =================
+\card{mis}{({\colx{0}},\ytop)}{cCore}{Місія}{%
+  Дати кожному пілоту-аматору об'єктивний розбір заїзду без тренера і без нового обладнання.}
+
+\card{val}{\under{mis}}{cCore}{Value proposition}{%
+  Після заїзду за 5 хвилин: \textbf{де} втрачаєш час, \textbf{чому} і \textbf{що} спробувати наступного разу.
+  Досить відео з GoPro чи треку з телефона, які вже є.\\[4pt]
+  Замість графіків — 2–3 поради з цифрами: \emph{«у T1 ти гальмуєш на 10 м раніше, ніж у найкращому колі»}.}
+
+\card{aud}{\under{val}}{cCore}{Для кого}{%
+  \begin{itemize}
+    \item Пілоти прокатного картингу \st{MVP}
+    \item Аматорські гонки в картингу \st{MVP}
+    \item Трек-дні на автомобілях \st{після курсу}
+  \end{itemize}
+  \vspace{4pt}
+  \textbf{Спільне:} немає тренера, а телеметрія дорога і складна.}
+
+\card[\ybot]{tone}{\under{aud}}{cTone}{Tone of voice}{%
+  \begin{itemize}
+    \item \textbf{Прямо і з цифрами:} «на 10 м раніше», а не «гальмуй пізніше»
+    \item \textbf{Без жаргону} телеметрії — зрозуміло новачку з першого прочитання
+    \item \textbf{Чесно про точність:} невпевнені ділянки — пунктиром, біля поради — сила зв'язку
+    \item \textbf{Як тренер, а не суддя:} що спробувати, а не перелік помилок
+    \item \textbf{Коротко:} не більше 3 порад за сесію
+  \end{itemize}}
+
+% ================= Колонка 2: проблема і продукт =================
+\card{pain}{({\colx{1}},\ytop)}{cTone}{Больові точки \ra{} що робимо}{%
+  \begin{itemize}
+    \item \textbf{Де} втрачаю час? \ra{} повороти за втратою
+    \item \textbf{Чому?} \ra{} гальмування, апекс, вихід
+    \item \textbf{Що змінити?} \ra{} 2–3 поради і план
+    \item \textbf{Тренер} €250–350 на день \ra{} розбір після кожної сесії
+    \item \textbf{Телеметрія} \$777–1\,200 \ra{} своя камера
+    \item Не видно \textbf{прогресу} \ra{} історія найкращого кола
+  \end{itemize}}
+
+\card{feat}{\under{pain}}{cPlat}{Основні функції}{%
+  \begin{itemize}
+    \item Завантаження: GoPro / телефон \st{MVP / бета}
+    \item Автоматичний поділ на кола \st{MVP}
+    \item Карта траси і повороти \st{MVP}
+    \item Де втрачається час \st{MVP}
+    \item Поради / відео біля поради \st{MVP / бета}
+    \item План на наступний заїзд \st{бета}
+    \item Історія прогресу \st{реліз 1.0}
+  \end{itemize}}
+
+\card[\ybot]{fmt}{\under{feat}}{cPlat}{Формат і ринок}{%
+  \begin{itemize}
+    \item \textbf{Вебзастосунок:} розбір у браузері на ноутбуці
+    \item \textbf{Відео не вивантажуємо} — лише GPS-телеметрію
+    \item \textbf{Україна, відкриті траси;} перша — «Жага швидкості», Київ
+    \item \textbf{Без мобільного застосунку:} трек пише будь-який наявний
+    \item \textbf{Мова:} українська; англійська — після курсу
+    \item \textbf{Розмір ринку ще не досліджено}
+  \end{itemize}}
+
+% ================= Колонка 3: метрика і гроші =================
+\card{nsm}{({\colx{2}},\ytop)}{cCore}{North Star metric}{%
+  {\fontsize{16}{19}\selectfont\bfseries\color{accent} Корисні розбори за тиждень}\\[4pt]
+  Розбори, у яких пілот оцінив хоча б одну пораду як корисну.
+  Росте, лише коли продуктом і користуються, і він приносить користь.\\[4pt]
+  \textbf{Ціль у беті:} ≥\,7 з 10 розборів.}
+
+\card{sup}{\under{nsm}}{cCore}{Допоміжні метрики}{%
+  \begin{itemize}
+    \item \textbf{Точність:} похибка кола в середньому ≤\,0,05\,с
+    \item \textbf{Активація:} 4 з 5 пілотів доходять до розбору
+    \item \textbf{Утримання:} ≥\,40\,\% — друга сесія за 30 днів
+    \item \textbf{Результат:} 3 з 5 пілотів покращили коло, медіана ≥\,0,3\,с
+  \end{itemize}}
+
+\card[\ybot]{biz}{\under{sup}}{cBiz}{Freemium (гіпотеза)}{%
+  \textbf{Перший розбір — безкоштовно і повністю.}\\[4pt]
+  \begin{itemize}
+    \item \textbf{Безкоштовно:} 3 розбори на місяць, усі поради, історія за 30 днів
+    \item \textbf{Pro, \$3–8 на місяць:} без обмежень, повна історія, порівняння з другом
+    \item \textbf{Картодром, за домовленістю:} траса в базі, розбори для групових занять
+  \end{itemize}
+  \vspace{4pt}
+  {\color{ink!70}\textbf{Орієнтири:} RaceChrono Pro — \$19.99; академія K1 Speed — \$139; тренер — €250–350 на день.}\\[4pt]
+  {\color{ink!70}\textbf{Запуск:} після курсу, якщо в беті ≥\,40\,\% «заплатив би» і утримання ≥\,40\,\%.}}
+
+% ================= Колонка 4: оточення і майбутнє =================
+\card{comp}{({\colx{3}},\ytop)}{cBiz}{Конкуренти}{%
+  \begin{itemize}
+    \item \textbf{RaceChrono} \$19.99 — графіки без порад
+    \item \textbf{Garmin Catalyst 2} \$1,199.99 — окремий пристрій
+    \item \textbf{AiM Solo 2} \textasciitilde\$777 — для досвідчених
+    \item \textbf{Tenth Finder, Kart Track} — потрібен логер MyChron
+    \item \textbf{Track Titan} — почав із симуляторів
+  \end{itemize}
+  \vspace{4pt}
+  \textbf{Наша відмінність:} без нового обладнання, поради простою мовою, відео біля поради.}
+
+\card{next}{\under{comp}}{cPlat}{Що далі (після курсу)}{%
+  \begin{itemize}
+    \item \textbf{Більше трас:} автоматичні межі, автопошук поворотів
+    \item \textbf{Точніше:} межі за дроном і відео; RaceBox
+    \item \textbf{Прогрес:} чи виправлено помилку; ідеальне коло
+    \item \textbf{Разом:} порівняння з другом, поширення розбору
+    \item \textbf{Гроші:} картодроми-партнери, тарифи Pro
+  \end{itemize}}
+
+\card[\ybot]{not}{\under{next}}{cBiz}{Свідомо не робимо}{%
+  \begin{itemize}
+    \item \textbf{Підказки в реальному часі} — ніша Garmin Catalyst
+    \item \textbf{Криті картодроми} — там немає GPS
+    \item \textbf{Імпорт MyChron і AiM} — наша сила без нового обладнання
+    \item \textbf{Соцмережа і рейтинги} — не відповідають на «де, чому, що змінити»
+  \end{itemize}}
+
+\end{tikzpicture}
+\end{document}
