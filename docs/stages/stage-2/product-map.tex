@@ -1,7 +1,7 @@
-% Картка продукту «Цифровий тренер для автоспорту» — один слайд 16:9, 4 колонки
-% Джерело: Product-Card.md. Стиль — як у roadmap/roadmap.tex
-% Збирання: latexmk -xelatex product-card.tex
-% PNG: pdftoppm -png -r 170 -singlefile product-card.pdf product-card
+% Карта продукту «Цифровий тренер для автоспорту» — один слайд 16:9, 4 колонки
+% Джерело: Product-Map.md
+% Збирання: latexmk -xelatex product-map.tex
+% PNG: pdftoppm -png -r 170 -singlefile product-map.pdf product-map
 \documentclass[tikz,border=0pt]{standalone}
 
 \usepackage{fontspec}
@@ -18,7 +18,7 @@
 \setlist[itemize]{nosep, leftmargin=1.0em, label={\color{accent}\textbullet}}
 \usetikzlibrary{positioning,calc,backgrounds}
 
-% ---------- Кольори (як у презентації етапу 1 і roadmap.tex) ----------
+% ---------- Кольори (як у презентації етапу 1) ----------
 \definecolor{accent}{HTML}{C8461B}
 \definecolor{ink}{HTML}{23272B}
 \definecolor{steel}{HTML}{3E6A86}
