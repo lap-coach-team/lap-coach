@@ -1,0 +1,192 @@
+\section{Продукт і цілі}
+
+% ===== Продукт =====
+\begin{frame}{Що ми будуємо}
+\vspace{0.1cm}
+{\small Вебзастосунок, який перетворює GPS-запис з екшн-камери чи телефона на розбір заїзду.\par}
+
+\vspace{0.2cm}
+\begin{tikzpicture}[
+    pstep/.style={draw=none,fill=soft,minimum height=0.9cm,text width=2.25cm,align=center,font=\scriptsize\semibold,text=ink,inner sep=2pt},
+    arr/.style={-{Stealth[length=4pt]},kerb,line width=0.9pt}]
+  \node[pstep,fill=ink,text=white] (a) {Відео GoPro\\або трек телефона};
+  \node[pstep,right=0.42cm of a] (b) {Поділ на кола};
+  \node[pstep,right=0.42cm of b] (c) {Траєкторія на\\межах траси};
+  \node[pstep,right=0.42cm of c] (d) {Повороти, де\\втрачено час};
+  \node[pstep,right=0.42cm of d,fill=kerb,text=white] (e) {2–3 прості\\поради};
+  \foreach \u/\v in {a/b,b/c,c/d,d/e} \draw[arr] (\u) -- (\v);
+\end{tikzpicture}
+
+\vspace{0.3cm}
+\begin{columns}[T,onlytextwidth]
+\column{0.31\textwidth}
+  \lbl{Для кого}\par\vskip0.12cm
+  {\scriptsize
+  \textbf{Прокатний картинг} — пілоти, які їздять регулярно. Головний сегмент MVP.\par\vskip0.08cm
+  Далі — аматорські гонки в картингу. Трек-дні на авто — після курсу.\par}
+\column{0.31\textwidth}
+  \lbl{Проблема}\par\vskip0.12cm
+  {\scriptsize
+  Новачку бракує об'єктивного зворотного зв'язку.\par\vskip0.08cm
+  Тренер — \textbf{€250–350} на день.\\
+  Garmin Catalyst 2 — \textbf{\$1,199.99}.\\
+  AiM Solo 2 — \textbf{\textasciitilde\$777}.\par}
+\column{0.31\textwidth}
+  \lbl{Чим відрізняємось}\par\vskip0.12cm
+  {\scriptsize
+  \textbf{Без нового обладнання:} досить відео GoPro чи треку з телефона, які в пілота вже є.\par\vskip0.08cm
+  Поради простою мовою, а не графіки, і відео біля кожної поради.\par}
+\end{columns}
+\note{\speaker{П1}
+Lap Coach — це вебзастосунок-тренер для пілотів-аматорів. Пілот завантажує відео з GoPro або трек з телефона. Застосунок ділить заїзд на кола, накладає траєкторію на межі траси, знаходить повороти, де втрачається час, і дає дві-три прості поради на наступний заїзд.
+
+Головний сегмент MVP — прокатний картинг. Проблема в тому, що новачку бракує зворотного зв'язку: тренер коштує 250–350 євро на день, а телеметрія — від 777 до 1200 доларів.
+
+Наша відмінність — не треба купувати нове обладнання, і поради пишемо простою мовою.}
+\end{frame}
+
+% ===== Цілі =====
+\begin{frame}{Цілі на курс і на рік}
+\vspace{0.05cm}
+\centering
+\begin{tikzpicture}[x=1.183cm,y=1cm,
+    gcard/.style={anchor=north west,inner sep=4pt,fill=soft,font=\tiny,text=body}]
+  % дужки «на курс» / «на рік»
+  \draw[ink,line width=0.5pt] (0.03,1.42) -- (0.03,1.5) -- (6.97,1.5) -- (6.97,1.42);
+  \node[font=\tiny\semibold,text=ink,fill=white,inner sep=3pt] at (3.5,1.5) {На курс · листопад 2026 – травень 2027};
+  \draw[ink,line width=0.5pt] (7.03,1.42) -- (7.03,1.5) -- (11.97,1.5) -- (11.97,1.42);
+  \node[font=\tiny\semibold,text=ink,fill=white,inner sep=3pt] at (9.5,1.5) {На рік · червень – жовтень 2027};
+  % місяці
+  \foreach \m [count=\i from 0] in {лис,гру,січ,лют,бер,кві,тра,чер,лип,сер,вер,жов}{
+    \node[font=\tiny,text=mute] at (\i+0.5,1.08) {\m};
+    \draw[line,line width=0.4pt] (\i,0.88) -- (\i,0.05);
+  }
+  \draw[line,line width=0.4pt] (12,0.88) -- (12,0.05);
+  % фази
+  \fill[kerb] (0.04,0.2) rectangle (0.66,0.72);
+  \fill[lane] (1.04,0.2) rectangle (6.96,0.72);
+  \fill[go]   (8.04,0.2) rectangle (8.96,0.72);
+  \fill[ink]  (9.04,0.2) rectangle (10.96,0.72);
+  \fill[flag] (11.04,0.2) rectangle (11.96,0.72);
+  \node[font=\tiny\semibold,text=white] at (0.35,0.46) {MVP};
+  \node[font=\tiny\semibold,text=white] at (4,0.46) {Бета з пілотами};
+  \node[font=\tiny\semibold,text=white] at (8.5,0.46) {1.0};
+  \node[font=\tiny\semibold,text=white] at (10,0.46) {Більше трас};
+  % картки під фазами
+  \node[gcard] (m) at (0,-0.15) {\topbox{2.6cm}{3.3cm}{%
+     {\scriptsize\semibold\color{kerb}MVP · до \textasciitilde20.11}\par\vskip2pt
+     Пілот завантажує відео GoPro з «Жаги швидкості» і бачить кола, повороти з найбільшими втратами і 2–3 поради.\par\vskip4pt
+     {\semibold\color{ink}Похибка кола ≤\,0,05\,с}\\ у демо — 0,035\,с}};
+  \node[gcard] (b) at (2.45,-0.15) {\topbox{4.25cm}{3.3cm}{%
+     {\scriptsize\semibold\color{lane}Бета · грудень – травень}\par\vskip2pt
+     Розбори для 5 пілотів, кнопки оцінки порад, логи подій, анкета.\par\vskip4pt
+     \renewcommand{\arraystretch}{1.05}%
+     \begin{tabular}{@{}>{\semibold\color{ink}}l@{\enspace}>{\raggedright\arraybackslash}p{2.95cm}@{}}
+       North Star & ≥\,7 з 10 розборів мають корисну пораду\\
+       Активація & ≥\,4 з 5 пілотів доходять до розбору\\
+       Утримання & ≥\,40\% — друга сесія за 30 днів\\
+       Покращення & ≥\,3 з 5 пілотів, медіана ≥\,0,3\,с
+     \end{tabular}}};
+  \node[gcard] (r) at (6.42,-0.15) {\topbox{1.7cm}{3.3cm}{%
+     {\scriptsize\semibold\color{go}Реліз 1.0}\\{\semibold липень}\par\vskip3pt
+     Історія прогресу: найкраще коло по кожній трасі.}};
+  \node[gcard] (t) at (8.2,-0.15) {\topbox{1.7cm}{3.3cm}{%
+     {\scriptsize\semibold\color{ink}Більше трас}\\{\semibold серпень – вересень}\par\vskip3pt
+     Нову відкриту трасу додаємо без ручного обведення меж.}};
+  \node[gcard] (f) at (9.98,-0.15) {\topbox{2.15cm}{3.3cm}{%
+     {\scriptsize\semibold\color{flag!80!black}Рішення про тарифи}\\{\semibold жовтень}\par\vskip3pt
+     Запускаємо freemium, лише якщо в анкеті ≥\,40\% «заплатив би» і утримання ≥\,40\%.}};
+  % зв'язки фаза → картка
+  \draw[kerb,line width=0.6pt] (0.35,0.2) -- (0.35,-0.15);
+  \draw[lane,line width=0.6pt] (4,0.2) -- (4,-0.15);
+  \draw[go,line width=0.6pt] (8.5,0.2) -- (8.5,0.02) -- (7.15,0.02) -- (7.15,-0.15);
+  \draw[ink,line width=0.6pt] (10,0.2) -- (10,0.02) -- (8.95,0.02) -- (8.95,-0.15);
+  \draw[flag,line width=0.6pt] (11.5,0.2) -- (11.5,-0.15);
+\end{tikzpicture}
+\note{\speaker{П1}
+Цілі ми розділили на курс і на рік.
+
+На курс — дві. Перша: MVP до кінця модуля 2, приблизно до 20 листопада. Пілот бачить кола, проблемні повороти і дві-три поради. Міряємо похибкою часу кола: не більше 0,05 секунди, у демо вже вийшло 0,035.
+
+Друга: бета з п'ятьма пілотами з грудня до травня. Головна метрика — North Star: щонайменше 7 з 10 розборів мають хоча б одну корисну пораду.
+
+На рік: у липні Реліз 1.0 з історією прогресу, у серпні–вересні — нові траси без ручної роботи, а в жовтні — рішення про тарифи, тільки якщо бета покаже готовність платити.}
+\end{frame}
+
+% ===== Обсяг =====
+\begin{frame}{Обсяг: що входить і чого не робимо}
+\vspace{0.05cm}
+\begin{columns}[T,onlytextwidth]
+\column{0.245\textwidth}\phasecol{kerb}{MVP}{%
+  Відео GoPro HERO5–HERO11, HERO13\par\vskip2pt
+  Автоматичний поділ на кола, без кіл із піт-лейном\par\vskip2pt
+  Карта однієї траси, межі вручну за супутником\par\vskip2pt
+  Повороти за втратою часу проти найкращого кола\par\vskip2pt
+  2–3 поради з цифрами}
+\column{0.245\textwidth}\phasecol{lane}{Бета}{%
+  Трек із телефона з попередженням про точність\par\vskip2pt
+  Фрагмент відео біля поради\par\vskip2pt
+  План на наступний заїзд\par\vskip2pt
+  Кнопки оцінки порад, логи подій\par\vskip2pt
+  Анкета, зокрема про тарифи}
+\column{0.245\textwidth}\phasecol{go}{Реліз 1.0}{%
+  Історія прогресу: найкраще коло по трасі}
+\column{0.245\textwidth}\phasecol{later}{Після курсу}{%
+  Автоматичні межі й автопошук поворотів\par\vskip2pt
+  Межі за фото з дрона, GPS RaceBox\par\vskip2pt
+  Ідеальне коло, «чи виправлено помилку»\par\vskip2pt
+  Порівняння з другом, англійська, трек-дні\par\vskip2pt
+  Картодроми-партнери, тарифи Pro}
+\end{columns}
+
+\vspace{0.3cm}
+{\lbl{Свідомо не робимо}}\par\vskip0.12cm
+{\tiny\color{body}\nochip{Підказки в реальному часі}\nochip{Криті картодроми}\nochip{Імпорт MyChron і AiM}\nochip{Соцмережа і рейтинги}\nochip{Мобільний застосунок}}
+\note{\speaker{П1}
+Обсяг розклали за чотирма фазами. У MVP — тільки ядро розбору: відео GoPro, кола, карта однієї траси, повороти з найбільшими втратами і дві-три поради. У бету — трек із телефона, відео біля поради, план на наступний заїзд і все, що потрібно, щоб міряти метрики. Реліз 1.0 — історія прогресу. Решта — після курсу.
+
+І окремо — що ми свідомо не робимо. Підказки в реальному часі — це ніша Garmin Catalyst. На критих картодромах немає GPS. Імпорт MyChron і AiM суперечить нашій ідеї «без нового обладнання». Соцмережа і мобільний застосунок не відповідають на питання «де, чому і що змінити».}
+\end{frame}
+
+% ===== Обмеження =====
+\begin{frame}{Обмеження}
+\vspace{0.15cm}
+\begin{columns}[T,onlytextwidth]
+\column{0.245\textwidth}\limcard{5 людей × 6 год на тиждень}{ За 2 тижні MVP — 60 год, \textasciitilde48 год на задачі після запасу 20\%}
+\column{0.245\textwidth}\limcard{MVP — 4–20 листопада}{Що не влазить у \textasciitilde48 год, переходить у бету}
+\column{0.245\textwidth}\limcard{Лише відкриті траси}{На критих картодромах немає GPS}
+\column{0.245\textwidth}\limcard{GoPro HERO5–11, HERO13}{У HERO12 немає GPS. Інші камери — трек із телефона, з бети}
+\end{columns}
+\vspace{0.18cm}
+\begin{columns}[T,onlytextwidth]
+\column{0.245\textwidth}\limcard{Одна траса в MVP}{«Жага швидкості», Київ: там записано демо. Межі обводимо вручну}
+\column{0.245\textwidth}\limcard{Українська мова}{Англійська — після курсу}
+\column{0.245\textwidth}\limcard{Бюджет 0}{Безкоштовно для тестувальників. Нове обладнання не купуємо, працюємо з відкритим GPMF}
+\column{0.245\textwidth}\limcard{Відео не на сервер}{Дістаємо з файлу лише GPS-телеметрію: кілька МБ на сесію}
+\end{columns}
+\note{\speaker{П1}
+Тепер обмеження. Головне — час. Нас п'ятеро по 6 годин на тиждень, тому за два тижні MVP — 60 годин, а на задачі після запасу — близько 48. Усе, що не влазить, переходить у бету.
+
+Інші обмеження технічні. Працюємо лише на відкритих трасах, бо на критих немає GPS. Підтримуємо GoPro HERO5–HERO11 і HERO13: у HERO12 GPS немає. У MVP одна траса — «Жага швидкості», де записано демо. Інтерфейс український, бюджет нульовий, а відео не вивантажуємо на сервер — тільки телеметрію.}
+\end{frame}
+
+% ===== Ризики =====
+\begin{frame}{Припущення і ризики}
+\vspace{-0.1cm}
+\setlength{\aboverulesep}{1.5pt}\setlength{\belowrulesep}{2.5pt}
+\renewcommand{\arraystretch}{1.12}
+\arrayrulecolor{line}
+{\scriptsize
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash\leavevmode}p{5.9cm}@{\hspace{0.45cm}}>{\raggedright\arraybackslash\leavevmode}X@{}}
+\lbl[mute]{Ризик або припущення} & \lbl[mute]{Що робимо} \\ \midrule
+{\semibold\color{ink}Точність GPS GoPro перевірено лише на одній сесії} & Перевіряємо на інших записах у беті. З записів зі слабким сигналом порад не робимо \\ \midrule
+{\semibold\color{ink}Точні межі траси потребують фото з дрона; умови знімків Esri не перевірені} & У MVP межі із супутника, невпевнені ділянки — пунктиром. Умови знімків — у перший тиждень модуля 2 \\ \midrule
+{\semibold\color{ink}Tenth Finder і Kart Track уже дають поради} & Перевіряємо їх у перший тиждень модуля 2. Наша відмінність — без нового обладнання і з відео біля поради \\ \midrule
+{\semibold\color{ink}Виробник може прибрати GPS з камери, як у HERO12} & Публікуємо список камер; для інших — трек із телефона з попередженням про точність \\ \midrule
+{\semibold\color{ink}Розмір ринку не досліджено, готовність платити — гіпотеза} & Перші дані дадуть набір пілотів і анкета бети. Тарифи — лише за умов із цілей \\
+\end{tabularx}}
+\note{\speaker{П1}
+П'ять головних ризиків. Найбільший — точність: ми перевірили GPS GoPro лише на одній сесії одного пілота, тому в беті перевіряємо на інших записах. Межі траси точно обвести можна тільки за фото з дрона, а умови супутникових знімків Esri ще не перевірені — це робимо в перший тиждень модуля 2. Тоді ж перевіряємо конкурентів, Tenth Finder і Kart Track.
+
+Ще два ризики — виробник може прибрати GPS з камер, і ми не знаємо розміру ринку. На перший відповідаємо треком із телефона, на другий — анкетою бети.}
+\end{frame}

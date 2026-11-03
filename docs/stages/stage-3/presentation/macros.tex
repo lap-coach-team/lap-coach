@@ -1,0 +1,106 @@
+% Допоміжні макроси для слайдів (винесено з кадрів, бо # усередині frame ламається)
+% Блок фіксованого розміру з текстом угорі
+\newcommand{\topbox}[3]{\parbox[t][#2][t]{#1}{\raggedright #3}}
+
+% з slides/02-product.tex
+\newcommand{\phasecol}[3]{%
+  \begin{tikzpicture}
+    \node[anchor=north west,inner sep=5pt,fill=soft,font=\tiny,text=body] (p) at (0,0)
+      {\topbox{3.05cm}{3.0cm}{{\scriptsize\semibold\color{ink}#2\par}\vskip3pt #3\par}};
+    \fill[#1] (p.north west) rectangle ($(p.north east)+(0,0.07)$);
+  \end{tikzpicture}}
+
+% з slides/02-product.tex
+\newcommand{\limcard}[2]{%
+  \begin{tikzpicture}
+    \node[anchor=north west,inner sep=5pt,fill=soft] (q) at (0,0)
+      {\topbox{3.0cm}{1.45cm}{{\footnotesize\semibold\color{ink}#1\par}\vskip3pt{\tiny\color{body}#2\par}}};
+    \fill[kerb] (q.north west) rectangle ($(q.south west)+(0.05,0)$);
+  \end{tikzpicture}}
+
+% з slides/03-work.tex
+\newcommand{\gphase}[4]{% початок, кінець, назва, номер
+  \fill[ink] (#1-1+0.03,-0.36) rectangle (#2-0.03,-0.92);
+  \node[anchor=west,font=\tiny\semibold,text=white,text width=(#2-#1+1)*1.183cm-0.25cm,align=left,inner sep=0pt]
+    at (#1-1+0.1,-0.64) {Ф#4\enspace#3};}
+
+% з slides/03-work.tex
+\newcommand{\gwork}[6]{% фаза-початок, фаза-кінець, початок, кінець, рядок, назва
+  \pgfmathsetmacro{\yy}{-1.06-(#5-1)*0.76}
+  \fill[kerb] (#3-1+0.03,\yy) rectangle (#4-0.03,\yy-0.12);
+  \node[anchor=north west,font=\tiny,text=body,text width=(#2-#1+1)*1.183cm-0.2cm,align=left,inner sep=0pt]
+    at (#1-1+0.06,\yy-0.17) {#6};}
+
+% з slides/03-work.tex
+\newcommand{\racirow}[4]{% рядок, ім'я, роль, клітинки
+  \pgfmathsetmacro{\yy}{-(#1-1)*0.62}
+  \node[anchor=west,font=\scriptsize\semibold,text=ink,inner sep=0pt] at (-2.75,\yy+0.09) {#2};
+  \node[anchor=west,font=\tiny,text=mute,inner sep=0pt] at (-2.75,\yy-0.16) {#3};
+  \foreach \v [count=\c] in {#4}{%
+    \def\cx{(\c-1)*0.42+0.21}
+    \ifnum\strcmp{\v}{AR}=0
+      \fill[kerb] ({\cx-0.19},\yy-0.25) rectangle ({\cx+0.19},\yy+0.25);
+      \node[font=\fontsize{4.6}{5}\selectfont\semibold,text=white] at ({\cx},\yy) {A/R};
+    \else\ifnum\strcmp{\v}{R}=0
+      \fill[ink] ({\cx-0.19},\yy-0.25) rectangle ({\cx+0.19},\yy+0.25);
+      \node[font=\tiny\semibold,text=white] at ({\cx},\yy) {R};
+    \else\ifnum\strcmp{\v}{A}=0
+      \draw[kerb,line width=0.8pt] ({\cx-0.17},\yy-0.23) rectangle ({\cx+0.17},\yy+0.23);
+      \node[font=\tiny\semibold,text=kerb] at ({\cx},\yy) {A};
+    \else\ifnum\strcmp{\v}{C}=0
+      \fill[line] ({\cx-0.19},\yy-0.25) rectangle ({\cx+0.19},\yy+0.25);
+      \node[font=\tiny,text=body] at ({\cx},\yy) {C};
+    \else\ifnum\strcmp{\v}{I}=0
+      \node[font=\tiny,text=later] at ({\cx},\yy) {I};
+    \fi\fi\fi\fi\fi
+  }}
+
+% з slides/03-work.tex
+\newcommand{\loadrow}[3]{%
+  \pgfmathsetmacro{\yy}{-(#1-1)*0.62}
+  \node[anchor=west,font=\scriptsize\semibold,text=ink,inner sep=0pt] at (-2.3,\yy) {#2};
+  \foreach \v [count=\c] in {#3}{%
+    \ifcase\v \def\fc{soft}\def\tc{later}\or \def\fc{kerb!30}\def\tc{ink}\or \def\fc{kerb}\def\tc{white}\fi
+    \fill[\fc] ({(\c-1)*0.62+0.03},\yy-0.28) rectangle ({\c*0.62-0.03},\yy+0.28);
+    \node[font=\scriptsize\semibold,text=\tc] at ({(\c-0.5)*0.62},\yy) {\v};
+  }}
+
+% з slides/03-work.tex
+\newcommand{\ok}{\tikz[baseline=-0.5ex]{\fill[go] (0,0) circle (0.11); \draw[white,line width=0.9pt] (-0.06,0) -- (-0.01,-0.05) -- (0.06,0.05);}\enspace}
+
+% з slides/04-backlog.tex
+\newcommand{\brow}[7]{% рядок, фаза, період, Must, Should, Won't, години
+  \pgfmathsetmacro{\yy}{-(#1-1)*0.78}
+  \node[anchor=west,font=\footnotesize\semibold,text=ink,inner sep=0pt] at (0,\yy+0.1) {#2};
+  \node[anchor=west,font=\tiny,text=mute,inner sep=0pt] at (0,\yy-0.17) {#3};
+  \pgfmathsetmacro{\a}{2.9}
+  \pgfmathsetmacro{\b}{\a+#4*0.36}
+  \pgfmathsetmacro{\c}{\b+#5*0.36}
+  \pgfmathsetmacro{\d}{\c+#6*0.36}
+  \ifnum#4>0 \fill[kerb] (\a,\yy-0.22) rectangle (\b-0.03,\yy+0.22);
+    \node[font=\tiny\semibold,text=white] at ({(\a+\b)/2},\yy) {#4};\fi
+  \ifnum#5>0 \fill[kerb!35] (\b,\yy-0.22) rectangle (\c-0.03,\yy+0.22);
+    \node[font=\tiny\semibold,text=ink] at ({(\b+\c)/2},\yy) {#5};\fi
+  \ifnum#6>0 \fill[line] (\c,\yy-0.22) rectangle (\d-0.03,\yy+0.22);
+    \node[font=\tiny\semibold,text=mute] at ({(\c+\d)/2},\yy) {#6};\fi
+  \node[anchor=east,font=\footnotesize\heavy,text=ink] at (14.2,\yy) {#7};}
+
+% з slides/04-backlog.tex
+\newcommand{\hb}{0.085}% см на годину
+
+% з slides/04-backlog.tex
+\newcommand{\qcell}[7]{% x, y, колір, назва, кількість, підпис, приклади
+  \node[anchor=north west,inner sep=0.15cm,fill=#3] at (#1,#2) {\topbox{4.1cm}{2.1cm}{%
+    {\scriptsize\semibold\color{\qtext}#4}\hfill{\fontsize{16}{16}\selectfont\heavy\color{\qtext}#5}\par
+    {\tiny\color{\qsub}#6\par}\vskip0.08cm
+    {\tiny\color{\qtext}\linespread{1.08}\selectfont #7\par}}};}
+
+% з slides/05-module2.tex
+\newcommand{\scopeslot}[2]{%
+  \begin{tikzpicture}
+    \node[anchor=north west,draw=later,dashed,line width=0.6pt,rounded corners=2pt,inner sep=0.2cm] at (0,0)
+      {\topbox{6.55cm}{1.7cm}{{\footnotesize\semibold\color{ink}#1\par}\vskip0.1cm{\tiny\color{mute}#2\par}}};
+  \end{tikzpicture}}
+
+% з slides/02-product.tex
+\newcommand{\nochip}[1]{\tikz[baseline=(c.base)]\node[draw=line,rounded corners=1pt,inner sep=3pt](c){#1};\enspace}

@@ -1,0 +1,170 @@
+\section{Беклог і пріоритети}
+
+% ===== Беклог =====
+% Дані — Backlog.pdf, розділи 1–2. Пріоритети пораховано за рядками беклогу.
+\begin{frame}{Беклог: 45 задач за фазами}
+\vspace{0.15cm}
+\centering
+\begin{tikzpicture}
+  \node[anchor=east,font=\tiny\semibold,text=mute] at (14.2,0.62) {\caps{Оцінка, год}};
+  \node[anchor=west,font=\tiny\semibold,text=mute] at (2.9,0.62) {\caps{Задач за пріоритетом MoSCoW}};
+  \brow{1}{MVP}{4–20 листопада 2026}{19}{5}{0}{68}
+  \brow{2}{Бета}{грудень 2026 – травень 2027}{11}{1}{0}{51}
+  \brow{3}{Реліз 1.0}{липень 2027}{2}{0}{0}{8}
+  \brow{4}{Після курсу}{з червня 2027}{0}{2}{5}{—}
+  \draw[line] (0,-2.72) -- (14.2,-2.72);
+  \node[anchor=west,font=\footnotesize\semibold,text=ink] at (0,-3.0) {Разом 45};
+  \node[anchor=west,font=\tiny,text=body] at (2.9,-3.0) {%
+    \tikz[baseline=-0.6ex]\fill[kerb] (0,-0.1) rectangle (0.22,0.12);\;Must 32\qquad
+    \tikz[baseline=-0.6ex]\fill[kerb!35] (0,-0.1) rectangle (0.22,0.12);\;Should 8\qquad
+    \tikz[baseline=-0.6ex]\fill[line] (0,-0.1) rectangle (0.22,0.12);\;Won't 5};
+  \node[anchor=east,font=\tiny,text=mute,align=right] at (14.2,-3.0) {MVP: Must 56 + Should 12\\Бета: Must 47 + Should 4};
+\end{tikzpicture}
+
+\vspace{0.15cm}
+\raggedright
+{\tiny\color{mute}\caps{Епіки}\enspace
+\color{body}F1 Завантаження заїзду\enspace·\enspace F2 Поділ на кола\enspace·\enspace F3 Карта траси і повороти\enspace·\enspace F4 Де втрачається час\enspace·\enspace F5 Поради простою мовою\enspace·\enspace F6 План на наступний заїзд\enspace·\enspace F7 Історія прогресу\enspace·\enspace Технічна основа\enspace·\enspace Перевірки\enspace·\enspace Бета і метрики\par}
+\note{\speaker{П3}
+Беклог — це 45 задач з номерами від B-01 до B-45. Кожна має фазу, пріоритет за MoSCoW, оцінку в годинах і залежності. Епіки F1–F7 — це функції з Product Map, плюс технічна основа, перевірки, бета і метрики.
+
+Найбільше задач у MVP — 24, з них 19 обов'язкових, Must. Разом вони тягнуть на 68 годин. У беті 12 задач на 51 годину, у Реліз 1.0 — дві задачі на 8 годин. Сім задач після курсу ми поки не оцінюємо.}
+\end{frame}
+
+% ===== MVP: ресурс і обсяг =====
+% Дані — Backlog.pdf, розділ 3 «Обсяг MVP і ресурс».
+\begin{frame}{MVP: обсяг проти ресурсу}
+\vspace{0.1cm}
+\begin{columns}[T,onlytextwidth]
+\column{0.6\textwidth}
+\begin{tikzpicture}
+  \node[anchor=west,font=\scriptsize\semibold,text=ink] at (0,0) {Ресурс};
+  \fill[ink] (2.2,-0.22) rectangle ({2.2+48*\hb},0.22);
+  \fill[line] ({2.2+48*\hb},-0.22) rectangle ({2.2+60*\hb},0.22);
+  \node[font=\tiny\semibold,text=white] at ({2.2+24*\hb},0) {48 год на задачі};
+  \node[font=\tiny\semibold,text=mute] at ({2.2+54*\hb},0) {+12};
+  \node[anchor=west,font=\tiny,text=mute] at ({2.2+60*\hb+0.05},0) {запас};
+  %
+  \node[anchor=west,font=\scriptsize\semibold,text=ink] at (0,-0.85) {Беклог MVP};
+  \fill[kerb] (2.2,-1.07) rectangle ({2.2+56*\hb},-0.63);
+  \fill[kerb!35] ({2.2+56*\hb},-1.07) rectangle ({2.2+68*\hb},-0.63);
+  \node[font=\tiny\semibold,text=white] at ({2.2+28*\hb},-0.85) {Must 56};
+  \node[font=\tiny\semibold,text=ink] at ({2.2+62*\hb},-0.85) {12};
+  %
+  \node[anchor=west,font=\scriptsize\semibold,text=ink] at (0,-1.7) {Після спрощень};
+  \fill[kerb] (2.2,-1.92) rectangle ({2.2+48*\hb},-1.48);
+  \node[font=\tiny\semibold,text=white] at ({2.2+24*\hb},-1.7) {Must 48};
+  %
+  \draw[kerb,dashed,line width=0.7pt] ({2.2+48*\hb},0.45) -- ({2.2+48*\hb},-2.15);
+  \node[anchor=north,font=\tiny\semibold,text=kerb] at ({2.2+48*\hb},-2.15) {48};
+  \draw[mute,line width=0.4pt] (2.2,-2.15) -- (2.2,0.45);
+\end{tikzpicture}
+
+\vspace{0.25cm}
+{\scriptsize\color{body}
+\textbf{Ресурс:} 2 тижні × 6 год × 5 людей = 60 год, мінус запас 20\% на рев'ю, інтеграцію й зустрічі.\par\vskip0.1cm
+\textbf{Перевищення:} Must — 56 год, це на 8 год більше. Should (12 год) переходять у бету першими.\par}
+\column{0.36\textwidth}
+  \lbl{Як вкластися: −8 год}\par\vskip0.15cm
+  \renewcommand{\arraystretch}{1.35}
+  {\tiny
+  \begin{tabularx}{\linewidth}{@{}>{\ttfamily}lXr@{}}
+  B-05 & Лише виїзне коло, без піт-лейну & 3→1 \\
+  B-08 & Карта — у бету, у MVP список поворотів & 3→0 \\
+  B-13, B-17 & Один екран розбору замість двох & 5→3 \\
+  B-09 & Без швидкості на виході & 5→4 \\
+  \arrayrulecolor{line}\midrule
+  \multicolumn{2}{@{}l}{\semibold Разом Must} & \semibold 56→48 \\
+  \end{tabularx}}
+  \vskip0.2cm
+  {\tiny\color{mute}Ціль MVP не змінюється: кола, повороти з найбільшими втратами і 2–3 поради.\par}
+\end{columns}
+\note{\speaker{П3}
+Тепер найважливіше — чи влазить MVP у наш час. Ресурс: два тижні, по 6 годин, п'ятеро людей — 60 годин. Мінус 20\% на рев'ю, інтеграцію і зустрічі, тож на задачі лишається 48.
+
+А обов'язкові задачі MVP — це 56 годин, на вісім більше. Тому, по-перше, усі задачі Should переходять у бету першими. По-друге, ми спрощуємо чотири задачі: відкидаємо лише виїзне коло, карту переносимо в бету, робимо один екран розбору замість двох і не рахуємо швидкість на виході. Виходить рівно 48 годин, а ціль MVP не змінюється.}
+\end{frame}
+
+% ===== Критичний шлях =====
+% Дані — Backlog.pdf, розділ 3 «Порядок робіт».
+\begin{frame}{Критичний шлях MVP: 28 годин}
+\vspace{0.3cm}
+\centering
+\begin{tikzpicture}
+  \def\hw{0.455}% см на годину
+  \def\x{0}
+  \foreach \idd/\h/\name [count=\i] in {
+      B-20/3/Перевірка gopro-telemetry,
+      B-04/4/Час кожного кола,
+      B-10/4/Відрізки між поворотами,
+      B-09/5/Гальмування і швидкість у повороті,
+      B-14/5/Правила порад,
+      B-15/3/До 3 порад з цифрами,
+      B-17/2/Екран розбору,
+      B-22/2/Прогін демо}{%
+    \pgfmathsetmacro{\w}{\h*\hw}
+    \ifodd\i\def\fc{ink}\else\def\fc{kerb}\fi
+    \fill[\fc] (\x,0) rectangle ++(\w-0.08,0.75);
+    \node[font=\tiny\ttfamily\semibold,text=white,anchor=north west] at (\x+0.05,0.7) {\idd};
+    \node[font=\tiny\semibold,text=white,anchor=south west] at (\x+0.05,0.03) {\h\,год};
+    \node[font=\tiny,text=body,anchor=north west,text width=\w cm-0.12cm,align=left,inner sep=0pt]
+      at (\x,-0.12) {\name};
+    \pgfmathsetmacro{\nx}{\x+\w}\global\let\x\nx
+  }
+  \draw[decorate,decoration={brace,amplitude=4pt,mirror},mute] (0,-1.05) -- (12.74,-1.05);
+  \node[font=\scriptsize\semibold,text=ink] at (6.37,-1.4) {28 год з 48 — решту задач робимо паралельно};
+\end{tikzpicture}
+
+\vspace{0.55cm}
+\raggedright
+\lbl{Старт без залежностей}\par\vskip0.15cm
+\begin{columns}[T,onlytextwidth]
+\column{0.24\textwidth}{\scriptsize\id{B-18}\par\color{body}\tiny Каркас вебзастосунку, збирання, CI, деплой\par}
+\column{0.24\textwidth}{\scriptsize\id{B-19}\par\color{body}\tiny Формат даних: JSON сесії і конфігурація траси\par}
+\column{0.24\textwidth}{\scriptsize\id{B-20}\par\color{body}\tiny Перевірка gopro-telemetry на відео демо, тестові дані\par}
+\column{0.24\textwidth}{\scriptsize\id{B-23}\par\color{body}\tiny Умови використання знімків Esri\par}
+\end{columns}
+\note{\speaker{П3}
+Критичний шлях — це ланцюжок задач, кожна з яких чекає на попередню. У нас він від перевірки бібліотеки gopro-telemetry до прогону демо: вісім задач, 28 годин. Ширина кожного блоку — її оцінка в годинах.
+
+Почати можна з чотирьох задач без залежностей: каркас застосунку, формат даних, перевірка gopro-telemetry і умови знімків Esri. Коли є формат даних і тестові дані з демо, поділ на кола, повороти й поради можна робити паралельно із завантаженням відео.}
+\end{frame}
+
+% ===== Ейзенхауер =====
+% Дані — Eisenhower.pdf.
+\begin{frame}{Матриця Ейзенхауера}
+\vspace{-0.2cm}
+\begin{columns}[T,onlytextwidth]
+\column{0.67\textwidth}
+\begin{tikzpicture}
+  \node[font=\tiny\semibold,text=mute] at (2.55,0.22) {\caps{Терміново}};
+  \node[font=\tiny\semibold,text=mute] at (7.0,0.22) {\caps{Не терміново}};
+  \node[font=\tiny\semibold,text=mute,rotate=90] at (-0.22,-1.26) {\caps{Важливо}};
+  \node[font=\tiny\semibold,text=mute,rotate=90] at (-0.22,-3.7) {\caps{Не важливо}};
+  \def\qtext{white}\def\qsub{white!75!kerb}
+  \qcell{0.35}{0}{kerb}{Q1 · Робимо зараз}{17}{ядро MVP, 47 год після спрощень}{\id{B-01} відео GoPro, GPS у браузері\\ \id{B-04} час кожного кола\\ \id{B-11} втрата часу в повороті\\ \id{B-15} до 3 порад з цифрами\\ \id{B-21} автотест точності}
+  \def\qtext{white}\def\qsub{white!70!ink}
+  \qcell{4.83}{0}{ink}{Q2 · Плануємо}{18}{бета і реліз 1.0}{\id{B-08} карта траси\\ \id{B-25} GPX з телефона\\ \id{B-29} сервер і база\\ \id{B-32} оцінка порад (North Star)\\ \id{B-37} список сесій}
+  \def\qtext{ink}\def\qsub{mute}
+  \qcell{0.35}{-2.48}{soft}{Q3 · Швидко й мінімально}{1}{потрібна до демо, 1 год}{\id{B-23} умови знімків Esri — у перший тиждень, бо блокує межі траси (B-06)}
+  \qcell{4.83}{-2.48}{soft}{Q4 · Відкладаємо}{9}{після курсу або якщо лишиться час}{\id{B-24} Tenth Finder і Kart Track\\ \id{B-35} анкета бети\\ \id{B-39} більше трас\\ \id{B-41} ідеальне коло}
+\end{tikzpicture}
+\column{0.3\textwidth}
+  \vspace{0.3cm}
+  \lbl{Критерії}\par\vskip0.12cm
+  {\tiny\color{body}
+  \textbf{Важливо} — впливає на North Star або без неї не працює розбір.\par\vskip0.08cm
+  \textbf{Терміново} — потрібна для MVP (до \textasciitilde20.11) або блокує таку задачу.\par}
+  \vskip0.35cm
+  \lbl{Звірка з MVP}\par\vskip0.12cm
+  {\tiny\color{body}
+  \textbf{Q1 + Q3 = MVP:} 18 задач, 48 год — рівно ресурс команди.\par\vskip0.08cm
+  Усі задачі розкладено:\\ 17 + 18 + 1 + 9 = 45.\par}
+\end{columns}
+\note{\speaker{П4 · Ярина}
+Матриця Ейзенхауера розкладає всі 45 задач беклогу на чотири квадранти. Важливо — якщо задача впливає на North Star або без неї не працює розбір. Терміново — якщо вона потрібна для MVP або блокує таку задачу.
+
+У першому квадранті 17 задач — це і є ядро MVP. У другому 18: їх плануємо на бету і реліз. У третьому одна — перевірити умови знімків Esri, бо від цього залежать межі траси. У четвертому дев'ять задач, які відкладаємо.
+
+Перший і третій квадранти разом — 18 задач на 48 годин, рівно наш ресурс на MVP.}
+\end{frame}
