@@ -1,0 +1,50 @@
+% ===== Титул =====
+\begin{darkframe}
+\begin{frame}[plain,t]
+\begin{slidecanvas}
+  % шахова клітинка фінішу праворуч угорі
+  \checker{(12.4,-3.0)}{9}{7}{0.4}
+  \fill[dark,path fading=west] (12.3,-3.1) rectangle ++(1.4,3.2);
+  % бордюр унизу
+  \kerbstrip{(-0.3,-9)}{34}{0.28}
+  % текст
+  \node[anchor=north west,align=left,text width=12cm] at (0.9,-1.5) {%
+    {\footnotesize\semibold\color{kerb}\caps{Етап 3\enspace·\enspace Планування}}\par\vskip0.3cm
+    {\fontsize{46}{46}\selectfont\heavy\color{white}Lap\hspace{0.3em}Coach}\par\vskip0.25cm
+    {\large\light\color{white!80!dark}Цифровий тренер для автоспорту}\par\vskip0.7cm
+    {\normalsize\semibold\color{white}План проєкту на рік:\ листопад 2026 – жовтень 2027}%
+  };
+  \node[anchor=south west,align=left,font=\scriptsize,text=later] at (0.9,-8.25)
+    {Дарина Демянчук\quad Катерина Наливайко\quad Марина Проніна\quad Ярина Афанасенко\quad Яна Уточкіна};
+\end{slidecanvas}
+\note{\speaker{Лід · Яна}
+Добрий день. Ми команда Lap Coach — цифрового тренера для автоспорту. На етапі 3 ми спланували проєкт на рік: з листопада 2026 до жовтня 2027.
+
+Далі покажемо, що і навіщо ми будуємо, як розклали роботи між людьми, як розставили пріоритети в беклозі і скільки реально встигнемо за модуль 2. Кожен розділ розповідає та, хто його готувала.}
+\end{frame}
+\end{darkframe}
+
+% ===== Етап у цифрах =====
+\begin{frame}{Етап 3 у цифрах}
+\vspace{0.15cm}
+\begin{columns}[T,onlytextwidth]
+  \column{0.31\textwidth}\stat{12}{місяців плану:\\листопад 2026 – жовтень 2027}
+  \column{0.31\textwidth}\stat[ink]{25}{робіт у 5 фазах дорожньої карти}
+  \column{0.31\textwidth}\stat[ink]{45}{задач у беклозі, B-01…B-45}
+\end{columns}
+\vspace{0.6cm}
+\begin{columns}[T,onlytextwidth]
+  \column{0.31\textwidth}\stat[ink]{5}{учасниць, по 6 год на тиждень}
+  \column{0.31\textwidth}\stat{48\,год}{на задачі MVP за 2 тижні\\модуля 2, після запасу 20\%}
+  \column{0.31\textwidth}\stat[ink]{≤\,0,05\,с}{похибка часу кола — головна\\технічна ціль MVP}
+\end{columns}
+\vfill
+{\scriptsize\color{mute}Артефакти:\enspace Project Overview\enspace·\enspace Roadmap і діаграма Ґанта\enspace·\enspace RACI\enspace·\enspace Беклог\enspace·\enspace Матриця Ейзенхауера\enspace·\enspace Обсяг робіт на модуль 2}
+\vspace{0.55cm}
+\note{\speaker{Лід · Яна}
+Коротко про етап у цифрах. План на 12 місяців. У дорожній карті 25 робіт у п'яти фазах, у беклозі — 45 задач.
+
+Нас п'ятеро, кожна має 6 годин на тиждень. Тому на MVP за два тижні модуля 2 у нас лише 48 годин на задачі — це вже після запасу 20\% на рев'ю, інтеграцію і зустрічі. Це обмеження проходить через увесь план.
+
+Головна технічна ціль MVP — похибка часу кола не більше 0,05 секунди проти офіційного хронометражу.}
+\end{frame}

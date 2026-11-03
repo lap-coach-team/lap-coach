@@ -22,3 +22,15 @@
 - [Product-Map.md](docs/stages/stage-2/Product-Map.md) — карта продукту: місія, цінність, користувачі, функції, конкуренти, бізнес-модель, метрики
 - [product-map.pdf](docs/stages/stage-2/product-map.pdf) — карта продукту на одному слайді (TikZ, [джерело](docs/stages/stage-2/product-map.tex)), збирання: `latexmk -xelatex product-map.tex`
 - [lean-canvas.pdf](docs/stages/stage-2/lean-canvas.pdf) — Lean Canvas
+
+### Етап 3. Планування
+
+Ми спланували проєкт на рік, з листопада 2026 до жовтня 2027. Описали цілі, обсяг і обмеження, склали перелік робіт із діаграмою Ґанта і розподілили відповідальність у RACI-матриці. Сформували беклог із 45 задач і розставили пріоритети за матрицею Ейзенхауера.
+
+- [Project-Overview.md](docs/stages/stage-3/Project-Overview.md) — опис проєкту, цілі на курс і на рік, обсяг, очікувані результати, обмеження, ризики
+- [Roadmap.md](docs/stages/stage-3/Roadmap.md) — перелік робіт за фазами; діаграма Ґанта — [gantt.pdf](docs/stages/stage-3/gantt.pdf)
+- [RACI.md](docs/stages/stage-3/RACI.md) — розподіл відповідальності за роботами і навантаження по місяцях
+- [Backlog.pdf](docs/stages/stage-3/Backlog.pdf) — беклог продукту: ID, фаза, пріоритет MoSCoW, оцінки й залежності
+- [Eisenhower.pdf](docs/stages/stage-3/Eisenhower.pdf) — матриця Ейзенхауера за задачами беклогу
+- Обсяг робіт на модуль 2 — буде доповнено
+- [presentation/](docs/stages/stage-3/presentation/) — презентація (LaTeX Beamer), збирання: `make pdf` (слайди), `make notes` (з нотатками доповідача), `make speech` (текст виступу)

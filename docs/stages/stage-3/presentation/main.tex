@@ -1,0 +1,47 @@
+% Презентація етапу 3 «Планування».
+% Збирання: make pdf (слайди), make notes (слайди + нотатки на другому екрані),
+% make speech (лише текст виступу, для друку).
+%
+% Хто говорить — у нотатках, у квадратних дужках. Розподіл за Team-Tasks.md:
+%   [Лід · Яна]   — вступ, перші кроки, фінал
+%   [П1]          — Project Overview (продукт, цілі, обсяг, обмеження, ризики)
+%   [П2 · Дарина] — Roadmap і діаграма Ґанта (автор Roadmap.md)
+%   [П4 · Ярина]  — RACI і матриця Ейзенхауера (автор RACI.md)
+%   [П3]          — беклог, ресурс MVP, критичний шлях
+%   [П5]          — обсяг робіт на модуль 2 (поки заглушка)
+% TODO: замінити П1, П3, П5 на імена.
+%
+% Усі цифри — з артефактів етапу 3 (Project-Overview.md, Roadmap.md, gantt.pdf,
+% RACI.md, Backlog.pdf, Eisenhower.pdf) і Product Map.
+
+\ifdefined\notesmode\PassOptionsToClass{handout}{beamer}\fi
+\documentclass[aspectratio=169,11pt]{beamer}
+\usetheme{lapcoach}
+
+\ifdefined\notesmode
+  \ifx\notesmode\notesonly
+    \setbeameroption{show only notes}
+  \else
+    \usepackage{pgfpages}
+    \setbeameroption{show notes on second screen=right}
+  \fi
+\fi
+
+\usepackage[ukrainian]{babel}
+\usepackage{tabularx}
+\usepackage{multirow}
+\input{macros}
+
+\title{Lap Coach}
+\subtitle{План проєкту на рік}
+
+\begin{document}
+
+\input{slides/01-intro}
+\input{slides/02-product}
+\input{slides/03-work}
+\input{slides/04-backlog}
+\input{slides/05-module2}
+\input{slides/06-final}
+
+\end{document}

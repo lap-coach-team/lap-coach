@@ -1,0 +1,166 @@
+% Тема презентації етапу 3 «Планування».
+% Світлі слайди з тонкою сіткою, темні — для титулу й фіналу.
+% Мотив — бордюр траси (червоно-білі смуги) і шахова клітинка фінішу.
+\mode<presentation>
+
+\RequirePackage{tikz}
+\usetikzlibrary{calc,positioning,arrows.meta,shapes.geometric,fadings,decorations.pathreplacing}
+\RequirePackage{fontspec}
+\RequirePackage{booktabs}
+\RequirePackage{array}
+\RequirePackage{colortbl}
+\RequirePackage{xcolor}
+
+% ---------- Шрифти ----------
+\setsansfont{Inter}[
+  Extension=.otf,
+  UprightFont=*-Regular, BoldFont=*-Bold,
+  ItalicFont=*-Italic, BoldItalicFont=*-BoldItalic,
+  FontFace={sb}{n}{*-SemiBold},
+  FontFace={l}{n}{*-Light},
+  FontFace={k}{n}{*-ExtraBold}]
+\setmonofont{IBMPlexMono}[
+  Extension=.otf, UprightFont=*-Regular, BoldFont=*-SemiBold]
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand{\semibold}{\fontseries{sb}\selectfont}
+\newcommand{\light}{\fontseries{l}\selectfont}
+\newcommand{\heavy}{\fontseries{k}\selectfont}
+\newcommand{\caps}[1]{{\addfontfeature{LetterSpace=8}\MakeUppercase{#1}}}
+\newcommand{\id}[1]{{\ttfamily #1}}
+
+% ---------- Кольори ----------
+\definecolor{ink}{HTML}{111318}
+\definecolor{body}{HTML}{2B2F38}
+\definecolor{mute}{HTML}{6B7280}
+\definecolor{line}{HTML}{E3E5EA}
+\definecolor{soft}{HTML}{F4F5F7}
+\definecolor{dark}{HTML}{0F1115}
+\definecolor{darkline}{HTML}{2A2E37}
+\definecolor{kerb}{HTML}{E5322D}     % акцент: червоний бордюр
+\definecolor{lane}{HTML}{2F6BFF}     % бета
+\definecolor{go}{HTML}{13A36E}       % реліз 1.0
+\definecolor{flag}{HTML}{F5A524}     % тарифи / попередження
+\definecolor{later}{HTML}{9CA3AF}    % після курсу
+
+\setbeamercolor{normal text}{fg=body,bg=white}
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{alerted text}{fg=kerb}
+\setbeamercolor{structure}{fg=ink}
+\setbeamercolor{frametitle}{fg=ink}
+\setbeamercolor{itemize item}{fg=kerb}
+\setbeamercolor{itemize subitem}{fg=mute}
+
+% ---------- Розміри ----------
+\setbeamersize{text margin left=0.9cm, text margin right=0.9cm}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}{\raisebox{0.18em}{\tikz\fill[kerb] (0,0) rectangle (0.12,0.12);}}
+\setbeamertemplate{itemize subitem}{\raisebox{0.2em}{\tikz\fill[mute] (0,0) rectangle (0.08,0.08);}}
+\setlength{\leftmargini}{1.1em}
+\setbeamerfont{normal text}{size=\small}
+\setbeamerfont{frametitle}{size=\LARGE}
+\setbeamerfont{note page}{size=\normalsize}
+
+% ---------- Розділи: їх 4, у футері — прогрес ----------
+\newcommand{\nsections}{4}
+
+% Заголовок слайда: над ним — номер і назва розділу
+\setbeamertemplate{frametitle}{%
+  \vskip0.45cm
+  \ifnum\value{section}>0
+    {\footnotesize\semibold\color{kerb}\caps{\thesection\enspace\insertsectionhead}}\par
+    \vskip0.12cm
+  \fi
+  {\usebeamerfont{frametitle}\heavy\color{ink}\insertframetitle}\par
+  \vskip0.05cm
+}
+
+% Футер: проєкт · прогрес за розділами · номер слайда
+\setbeamertemplate{footline}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \coordinate (bl) at (current page.south west);
+    \node[anchor=base west,font=\tiny\semibold,text=mute]
+      at ($(bl)+(0.9,0.38)$) {LAP COACH\enspace·\enspace ЕТАП 3};
+    \foreach \i in {1,...,\nsections}{%
+      \ifnum\i=\value{section}\def\c{kerb}\else\ifnum\i<\value{section}\def\c{ink}\else\def\c{line}\fi\fi
+      \fill[\c] ($(current page.south)+(-1.3+0.65*\i-0.65,0.42)$) rectangle ++(0.55,0.05);
+    }
+    \node[anchor=base east,font=\tiny\ttfamily,text=mute]
+      at ($(current page.south east)+(-0.9,0.38)$)
+      {\ifnum\insertframenumber<10 0\fi\insertframenumber\,/\,\inserttotalframenumber};
+  \end{tikzpicture}%
+}
+
+% ---------- Декор ----------
+% Бордюр траси: смуга з червоно-білих паралелограмів
+\newcommand{\kerbstrip}[3]{% #1 — початок (x,y), #2 — кількість, #3 — висота
+  \foreach \k in {1,...,#2}{%
+    \pgfmathsetmacro{\x}{(\k-1)*0.5}
+    \ifodd\k\def\kc{kerb}\else\def\kc{white}\fi
+    \fill[\kc] ($#1+(\x,0)$) -- ++(0.5,0) -- ++(0.12,#3) -- ++(-0.5,0) -- cycle;
+  }%
+}
+% Шахова клітинка фінішу
+\newcommand{\checker}[4]{% #1 — початок, #2 — стовпців, #3 — рядків, #4 — розмір клітинки
+  \foreach \i in {1,...,#2}{\foreach \j in {1,...,#3}{%
+    \pgfmathtruncatemacro{\p}{mod(\i+\j,2)}
+    \ifnum\p=0 \fill[white] ($#1+(\i*#4-#4,\j*#4-#4)$) rectangle ++(#4,#4);\fi
+  }}%
+}
+
+% Темний слайд (титул, фінал)
+% Тло малюємо в самому слайді (\darkbg), щоб воно було й на мініатюрі в нотатках
+\newenvironment{darkframe}{%
+  \setbeamercolor{normal text}{fg=white}%
+  \usebeamercolor[fg]{normal text}%
+}{}
+% Повносторінкове полотно для кадру [plain,t]: (0,0) — лівий верхній кут слайда,
+% (16,-9) — правий нижній. Не залежить від remember picture, тож працює й у мініатюрах.
+\newenvironment{slidecanvas}{%
+  \begin{tikzpicture}[overlay,shift={(-0.9cm,0.2cm)}]
+  \clip (0,0) rectangle (16,-9);
+  \fill[dark] (0,0) rectangle (16,-9);}{\end{tikzpicture}}
+
+% Мітка над блоком
+\newcommand{\lbl}[2][kerb]{{\scriptsize\semibold\color{#1}\caps{#2}}}
+
+% Картка: рамка, кольорова смужка зліва
+% \card[колір]{ширина}{заголовок}{вміст}
+\newcommand{\card}[4][kerb]{%
+  \begin{tikzpicture}
+    \node[inner sep=0.22cm, text width=#2-0.44cm, align=left, fill=soft] (c)
+      {{\footnotesize\semibold\color{ink}#3}\par\vskip0.08cm{\scriptsize\color{body}#4}};
+    \fill[#1] (c.north west) rectangle ($(c.south west)+(0.06,0)$);
+  \end{tikzpicture}%
+}
+
+% Велике число з підписом
+\newcommand{\stat}[3][kerb]{% колір, число, підпис
+  \begin{minipage}[t]{\linewidth}
+    {\fontsize{26}{28}\selectfont\heavy\color{#1}#2}\par\vskip0.1cm
+    {\scriptsize\color{body}#3}
+  \end{minipage}%
+}
+
+% Хто говорить (у нотатках)
+\newcommand{\speaker}[1]{{\color{kerb}\semibold[#1]}\enspace}
+
+% ---------- Сторінка нотаток ----------
+\setbeamertemplate{note page}{%
+  \vskip0.4cm
+  \hspace*{0.6cm}%
+  \begin{minipage}[t]{0.28\paperwidth}
+    \vspace{0pt}\fcolorbox{line}{white}{\insertslideintonotes{0.25}}
+  \end{minipage}%
+  \hspace{0.4cm}%
+  \begin{minipage}[t]{0.58\paperwidth}
+    \vspace{0pt}
+    {\scriptsize\ttfamily\color{mute}Слайд \insertframenumber}\par
+    \vskip0.05cm
+    {\large\heavy\color{ink}\insertshortframetitle}\par
+    \vskip0.25cm
+    {\small\color{body}\linespread{1.15}\selectfont\raggedright
+     \setlength{\parskip}{0.45em}\insertnote\par}
+  \end{minipage}
+}
+
+\mode<all>
