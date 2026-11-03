@@ -96,11 +96,36 @@
     {\tiny\color{\qtext}\linespread{1.08}\selectfont #7\par}}};}
 
 % з slides/05-module2.tex
-\newcommand{\scopeslot}[2]{%
-  \begin{tikzpicture}
-    \node[anchor=north west,draw=later,dashed,line width=0.6pt,rounded corners=2pt,inner sep=0.2cm] at (0,0)
-      {\topbox{6.55cm}{1.7cm}{{\footnotesize\semibold\color{ink}#1\par}\vskip0.1cm{\tiny\color{mute}#2\par}}};
-  \end{tikzpicture}}
+% Рядок розподілу: рядок, хто, потік, задачі {ID/год/колір,...}, запас
+\newcommand{\pplrow}[5]{%
+  \pgfmathsetmacro{\yy}{-(#1-1)*0.86}
+  \node[anchor=west,font=\footnotesize\heavy,text=ink,inner sep=0pt] at (0,\yy+0.12) {#2};
+  \node[anchor=west,font=\tiny,text=mute,inner sep=0pt] at (0,\yy-0.17) {#3};
+  \def\px{3.3}
+  \foreach \idd/\h/\fc in {#4}{%
+    \pgfmathsetmacro{\w}{\h*0.8}
+    \fill[\fc] (\px,\yy-0.32) rectangle ++(\w-0.06,0.64);
+    \node[anchor=north west,font=\fontsize{5.5}{6}\selectfont\ttfamily\semibold,text=white,inner sep=0pt] at (\px+0.07,\yy+0.25) {\idd};
+    \node[anchor=south west,font=\fontsize{5.5}{6}\selectfont,text=white!80!\fc,inner sep=0pt] at (\px+0.07,\yy-0.26) {\h\,год};
+    \pgfmathsetmacro{\nx}{\px+\w}\global\let\px\nx
+  }
+  \pgfmathsetmacro{\w}{#5*0.8}
+  \fill[soft] (\px,\yy-0.32) rectangle ++(\w-0.06,0.64);
+  \node[font=\fontsize{5.5}{6}\selectfont,text=mute] at (\px+\w/2-0.03,\yy) {запас #5};
+  \node[anchor=east,font=\footnotesize\heavy,text=ink] at (14.2,\yy) {12};}
+
+% з slides/05-module2.tex
+% Пункт чек-листа DoD
+\newcommand{\dod}[1]{\par\noindent\hangindent=1.1em\hangafter=1
+  \makebox[1.1em][l]{\raisebox{0.05em}{\tikz\draw[kerb,line width=0.8pt] (0,0) rectangle (0.17,0.17);}}#1\par\vskip0.13cm}
+
+% з slides/05-module2.tex
+% Крок демо: x, y, номер, що робимо, що бачимо
+\newcommand{\demostep}[5]{%
+  \node[anchor=north west,inner sep=0.15cm,fill=soft] (d) at (#1,#2) {\topbox{3.08cm}{1.62cm}{%
+    {\fontsize{15}{15}\selectfont\heavy\color{kerb}#3}\par\vskip0.08cm
+    {\tiny\semibold\color{ink}#4\par}\vskip0.06cm
+    {\tiny\color{body}#5\par}}};}
 
 % з slides/02-product.tex
 \newcommand{\nochip}[1]{\tikz[baseline=(c.base)]\node[draw=line,rounded corners=1pt,inner sep=3pt](c){#1};\enspace}
