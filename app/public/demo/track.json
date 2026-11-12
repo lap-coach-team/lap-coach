@@ -1,0 +1,21 @@
+{
+  "id": "zhaha-shvydkosti",
+  "name": "Жага швидкості",
+  "lapLengthM": 480.1,
+  "startLine": {
+    "lat": 50.37323,
+    "lon": 30.4650267,
+    "dirE": -0.1867,
+    "dirN": 0.9824,
+    "halfWidthM": 7
+  },
+  "corners": [
+    { "id": "T1", "direction": "L", "startM": 76.0, "apexM": 106.5, "endM": 157.0 },
+    { "id": "T2", "direction": "R", "startM": 157.0, "apexM": 175.5, "endM": 247.5 },
+    { "id": "T3", "direction": "L", "startM": 247.5, "apexM": 266.5, "endM": 277.5 },
+    { "id": "T4", "direction": "R", "startM": 277.5, "apexM": 289.5, "endM": 320.0 },
+    { "id": "T5", "direction": "R", "startM": 320.0, "apexM": 332.0, "endM": 373.1 },
+    { "id": "T6", "direction": "R", "startM": 373.1, "apexM": 402.6, "endM": 420.6 },
+    { "id": "T7", "direction": "L", "startM": 420.6, "apexM": 433.6, "endM": 480.1 }
+  ]
+}
