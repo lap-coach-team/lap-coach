@@ -1,9 +1,4 @@
 import './style.css';
+import { mountApp } from './ui/app';
 
-// Тимчасова сторінка. Екран розбору — задача «Екран розбору заїзду».
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <main>
-    <h1>Lap Coach</h1>
-    <p>Розбір заїзду за GPS-записом з GoPro. Екран розбору — у роботі.</p>
-  </main>
-`;
+mountApp(document.querySelector<HTMLDivElement>('#app')!);
