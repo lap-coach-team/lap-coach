@@ -1,4 +1,5 @@
 import type { GpxPoint, Session, TrackConfig, TrackPoint } from './model';
+import { InputError } from './parse';
 
 /**
  * Склеює частини запису (GH01, GH02…) в одну сесію: сортує за часом, відкидає дублікати,
@@ -7,12 +8,12 @@ import type { GpxPoint, Session, TrackConfig, TrackPoint } from './model';
  * Jira: «Склеювання частин запису і локальні координати: buildSession».
  */
 export function buildSession(
-  _chapters: GpxPoint[][],
-  _track: TrackConfig,
-  _sources: string[],
+  chapters: GpxPoint[][],
+  track: TrackConfig,
+  sources: string[],
 ): Session {
-  const parts = _chapters
-    .map((points, idx) => ({ points, source: _sources[idx] }))
+  const parts = chapters
+    .map((points, idx) => ({ points, source: sources[idx] }))
     .filter(part => part.points.length > 0)
     .sort((a, b) => a.points[0].time - b.points[0].time);
 
@@ -30,19 +31,19 @@ export function buildSession(
   }
 
   if (flatPoints.length === 0) {
-    throw new Error('No valid points in the provided GPX chapters.');
+    throw new InputError('У вибраних GPX-файлах немає жодної точки треку');
   }
 
   const R = 6371000; 
-  const lat0 = _track.startLine.lat;
-  const lon0 = _track.startLine.lon;
+  const lat0 = track.startLine.lat;
+  const lon0 = track.startLine.lon;
   const lat0Rad = (lat0 * Math.PI) / 180;
   const cosLat0 = Math.cos(lat0Rad);
 
   const firstTime = flatPoints[0].time;
   const startTimeIso = new Date(firstTime * 1000).toISOString();
   const dateStr = startTimeIso.split('T')[0];
-  const sessionId = `${dateStr}-${_track.id}`;
+  const sessionId = `${dateStr}-${track.id}`;
 
   const localCoords = flatPoints.map(pt => {
     const x = (pt.lon - lon0) * (Math.PI / 180) * R * cosLat0;
@@ -79,7 +80,7 @@ export function buildSession(
 
   return {
     id: sessionId,
-    trackId: _track.id,
+    trackId: track.id,
     startTime: startTimeIso,
     sources: sortedSources,
     points: trackPoints
