@@ -1,0 +1,11 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "Lap Coach API",
+  "entryPoints": ["src"],
+  "entryPointStrategy": "expand",
+  "exclude": ["**/*.test.ts", "src/main.ts"],
+  "tsconfig": "tsconfig.json",
+  "skipErrorChecking": true,
+  "readme": "none",
+  "out": "docs-api"
+}
